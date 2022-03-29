@@ -7,13 +7,12 @@ A basic custom login system is already in place with its login, password-reset, 
 # Installation
 - Clone the repository or download it as a .zip file.
 - Add the following environmental variables:
-```
-secret_key : Secret key of the project. Value must be a long random string. [Can be generated from here.](https://djecrety.ir/)
-db_user : PostgreSQL username.
-db_pass : PostgreSQL password.
-db_host : PostgreSQL host, most likely `localhost` or `127.0.0.1` if working on a local machine.
-db_name : Database name under PostgreSQL.
-db_port : Database port (default 5432).
-DJANGO_DEVELOPMENT : Set to `True` to set `DEBUG = True`. In production, set this value to `False`.
-```
+  - ***secret_key*** : Secret key of the project. Value must be a long random string. [Can be generated from here.](https://djecrety.ir/)
+  - ***db_user*** : PostgreSQL username.
+  - ***db_pass*** : PostgreSQL password.
+  - ***db_host*** : PostgreSQL host, most likely `localhost` or `127.0.0.1` if working on a local machine.
+  - ***db_name*** : Database name under PostgreSQL.
+  - ***db_port*** : Database port (default 5432).
+  - ***DJANGO_DEVELOPMENT*** : Set to `True` to set `DEBUG = True`. In production, set this value to `False`.
+
 - Install the required libraries using `pip install -r .\requirements\dev.txt` if working under development environment, or `pip install -r requirements.txt` if in production environment.
