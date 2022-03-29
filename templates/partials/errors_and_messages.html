@@ -1,0 +1,19 @@
+{% if form.subject.errors %}
+    <ol>
+        {% for error in form.subject.errors %}
+            <div class="alert alert-danger text-center" role="alert">
+                {{ error|escape }}
+            </div>
+        {% endfor %}
+    </ol>
+{% endif %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="container-fluid p-0 text-center">
+            <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

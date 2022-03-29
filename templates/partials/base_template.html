@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}"/>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <!-- Google fonts -->
+    <link rel="stylesheet" href="{% static 'fonts/google-fonts.css' %}">
+    <!-- Font Awesome -->
+    <link href="{% static 'fontawesome/css/all.css' %}" rel="stylesheet"/>
+    <!-- MDB -->
+    <link href="{% static 'mdb/css/mdb.min.css' %}" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/default.css' %}">
+
+</head>
+<body>
+
+<!-- Page content-->
+<div class="container-fluid">
+
+    {% load view_breadcrumbs %}
+    {% render_breadcrumbs "partials/breadcrumbs.html" %}
+
+    {% include 'partials/errors_and_messages.html' %}
+    {% block content %}
+
+    {% endblock %}
+
+</div>
+
+<!-- jQuery bundle -->
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<!-- Bootstrap bundle -->
+<script src="{% static 'bootstrap/js/popper.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<!-- MDB -->
+<script type="text/javascript" src="{% static 'mdb/js/mdb.min.js' %}"></script>
+<!-- HTMX -->
+<script src="{% static 'js/htmx.min.js' %}"></script>
+<script src="{% static 'js/_hyperscript_web.min.js' %}"></script>
+
+{% block scripts %}
+
+{% endblock %}
+</body>
+</html>

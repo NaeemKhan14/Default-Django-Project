@@ -1,0 +1,44 @@
+.table > thead > tr > th {
+    white-space: nowrap;
+}
+
+.table > tbody > tr > td {
+    white-space: nowrap;
+}
+
+/* Table styles */
+table.table thead th.orderable::after {
+    font-family: "Material Icons", serif;
+    content: '\e5c5';
+}
+
+table.table thead th.asc.orderable::after {
+    font-family: "Material Icons", serif;
+    content: '\e5c5';
+    color: orange;
+}
+
+table.table thead th.desc.orderable::after {
+    font-family: "Material Icons", serif;
+    content: '\e5c7';
+    color: orange;
+}
+
+.material-icons {
+    font-family: 'Material Icons', serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    font-feature-settings: 'liga' !important;
+}

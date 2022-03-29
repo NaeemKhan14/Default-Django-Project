@@ -1,0 +1,51 @@
+{# Pagination #}
+{% if is_paginated %}
+    <div class="container-fluid text-center mt-2">
+        {% if page_obj.has_previous %}
+            {% if 'csrfmiddlewaretoken' in request.get_full_path or 'sort' in request.get_full_path %}
+                <a class="btn btn-outline-primary mb-4" href="{{ request.get_full_path }}&page=1">First</a>
+                <a class="btn btn-outline-primary mb-4"
+                   href="{{ request.get_full_path }}&page={{ page_obj.previous_page_number }}">Previous</a>
+            {% else %}
+                <a class="btn btn-outline-primary mb-4" href="?page=1">First</a>
+                <a class="btn btn-outline-primary mb-4"
+                   href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                {% if 'csrfmiddlewaretoken' in request.get_full_path or 'sort' in request.get_full_path %}
+                    <a class="btn btn-primary mb-4" href="{{ request.get_full_path }}&page={{ num }}">{{ num }}</a>
+                {% else %}
+                    <a class="btn btn-primary mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                {% if 'csrfmiddlewaretoken' in request.get_full_path or 'sort' in request.get_full_path %}
+                    <a class="btn btn-outline-primary mb-4"
+                       href="{{ request.get_full_path }}&page={{ num }}">{{ num }}</a>
+                {% else %}
+                    <a class="btn btn-outline-primary mb-4"
+                       href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            {% if 'csrfmiddlewaretoken' in request.get_full_path or 'sort' in request.get_full_path %}
+                <a class="btn btn-outline-primary mb-4"
+                   href="{{ request.get_full_path }}&page={{ page_obj.next_page_number }}">Next</a>
+                <a class="btn btn-outline-primary mb-4"
+                   href="{{ request.get_full_path }}&page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% else %}
+                <a class="btn btn-outline-primary mb-4"
+                   href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a class="btn btn-outline-primary mb-4"
+                   href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}
