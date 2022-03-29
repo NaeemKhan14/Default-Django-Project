@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['secret_key']
 
 if os.getenv('DJANGO_DEVELOPMENT', 'False') == 'True':
-    from AthenaTools.settings_development import *
+    from DefaultProject.settings_development import *
 else:
-    from AthenaTools.settings_production import *
+    from DefaultProject.settings_production import *
 
 ALLOWED_HOSTS = []
 
@@ -58,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'AthenaTools.urls'
+ROOT_URLCONF = 'DefaultProject.urls'
 
 TEMPLATES = [
     {
@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'AthenaTools.wsgi.application'
+WSGI_APPLICATION = 'DefaultProject.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
