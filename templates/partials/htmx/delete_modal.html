@@ -1,0 +1,71 @@
+{# Delete btn modal #}
+<div id="delete-modal-backdrop" class="modal-backdrop fade" style="display:block;"></div>
+<div id="delete-modal_modal" class="modal fade" tabindex="-1" style="display:block;">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <form method="POST" hx-boost="true" action="{{ delete_url }}">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete?</h5>
+                    <button type="button" class="btn-close" onclick="closeModal('delete-modal')"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-body delete-form table-responsive">
+                        <h5 class="text-center">Are you sure you want to delete the following entry?</h5>
+
+
+                        <table class="table table-striped table-hover">
+
+                            <thead>
+                            <tr>
+                                <th scope="col">Field Name</th>
+                                <th scope="col">Value</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {% for field, value in data_obj %}
+                                <tr>
+                                    <td>{{ field }}</td>
+                                    <td>{{ value }}</td>
+                                </tr>
+                            {% endfor %}
+                            {% if 'user_projects' %}
+                                <tr>
+                                    <td>Projects</td>
+                                    <td>
+                                        {% for project in user_projects %}
+                                            {% if forloop.last %}
+                                                Project Code: <b>{{ project.project_code }}</b> - Project Name: <b>{{ project.project_name }}</b>
+                                            {% else %}
+                                                Project Code: <b>{{ project.project_code }}</b> - Project Name: <b>{{ project.project_name }}</b><br>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if user_projects_form %}
+                                <tr>
+                                    <td>Project</td>
+                                    <td>
+                                        {% load crispy_forms_tags %}
+                                        {% crispy user_projects_form %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('delete-modal')">Close</button>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" name="delete_entry" hx-target='closest tr'
+                            hx-swap='outerHTML swap:1s' hx-trigger="click">
+                        Delete
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

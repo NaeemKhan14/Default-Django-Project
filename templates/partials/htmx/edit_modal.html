@@ -1,0 +1,30 @@
+{# Delete btn modal #}
+<div id="edit-modal-backdrop" class="modal-backdrop fade" style="display:block;"></div>
+<div id="edit-modal_modal" class="modal fade" tabindex="-1" style="display:block;">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Entry</h5>
+                <button type="button" class="btn-close" onclick="closeModal('edit-modal')"></button>
+            </div>
+            <form method="POST" hx-boost="true" action="{{ edit_url }}">
+                <div class="modal-body">
+                    <div class="modal-body">
+                        {% load crispy_forms_tags %}
+                        {% crispy form %}
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('edit-modal')">Close</button>
+
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" name="edit_entry" hx-target='closest tr'
+                            hx-swap='outerHTML swap:1s' hx-trigger="click">
+                        Edit Entry
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

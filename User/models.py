@@ -55,6 +55,7 @@ class UserAccount(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
     is_superuser = models.BooleanField(default=False)
+    projects = models.ManyToManyField('Project.Project', related_name='user_projects', blank=True)
 
     objects = AccountManager()
     USERNAME_FIELD = 'username'

@@ -1,0 +1,147 @@
+{% extends 'partials/blank_content_template.html' %}
+
+{% load static %}
+{% load custom_tags %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Admin Management
+{% endblock %}
+
+{% block management_active %}
+    active
+{% endblock %}
+
+{% block new_user_form %}
+    {% crispy add_user_form %}
+{% endblock %}
+
+{% block add_project_form %}
+    {% crispy add_projects_form %}
+{% endblock %}
+
+{% block users_list %}
+    <div class="table-responsive tab-pane fade show active" id="table">
+
+        {% if request|reset_filter_btn %}
+            <a href="{% url 'management' %}" type="button"
+               class="btn btn-outline-danger mb-2">
+                <i class="bi bi-arrow-clockwise"></i>
+                Reset Filters
+            </a>
+        {% endif %}
+        <table class="table table-hover table-bordered text-center">
+            <thead>
+            <tr>
+                {% for field_name, verbose_name in columns %}
+                    {% with request.GET|make_sort_col:field_name as col %}
+                        <th scope="col" class="{{ col.0 }}">
+                            <a href="{% url 'management' %}?{{ col.1 }}">{{ verbose_name }}</a>
+                        </th>
+                    {% endwith %}
+                {% endfor %}
+                <th>Action</th>
+            </tr>
+            <tr>
+                <form action="" method="GET" id="filter_form">
+                    {% crispy filter.form %}
+                    <th>
+                        <button class="btn menu-btn justify-content-center align-content-between"
+                                type="submit"
+                                form="filter_form" value="Search">
+                            <span class="material-icons head-material">search</span>
+                            <br>
+                            <span class="head-mini-text">Search</span>
+                        </button>
+                    </th>
+
+                </form>
+            </tr>
+
+            </thead>
+            <tbody>
+            {% for object in users %}
+                <tr>
+                    <td>{{ object.username }}</td>
+                    <td>{{ object.email }}</td>
+                    <td>{{ object.first_name }}</td>
+                    <td>{{ object.last_name }}</td>
+                    <td>{{ object.salary_num }}</td>
+                    <td>{{ object.last_login }}</td>
+                    <td>
+                        {% if object.is_moderator %}
+                            Moderator
+                        {% else %}
+                            Normal User
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for project in object|get_user_projects %}
+                            {% if project %}
+                                <u>
+                                    {% if forloop.last %}
+                                        {{ project }}
+                                    {% else %}
+                                        {{ project }}<br>
+                                    {% endif %}
+                                </u>
+                            {% else %}
+                                None
+                            {% endif %}
+
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <button
+                                id="modal_btn"
+                                hx-get="{% url 'delete_user' object.id %}"
+                                hx-target="#delete-modal"
+                                hx-trigger="click"
+                                class="btn mdc-icon-button material-icons delete-button"
+                                _="on htmx:afterOnLoad wait 10ms then add .show to #delete-modal_modal then add .show to #delete-modal-backdrop">
+                            person_remove
+                        </button>
+
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+
+        {% include 'partials/pagination.html' %}
+    </div>
+{% endblock %}
+
+{% block projects_list %}
+    <div class="table-responsive tab-pane fade show active" id="table">
+        <table class="table table-hover table-bordered text-center">
+            <thead>
+            <tr>
+                <th scope="col">Project Code</th>
+                <th scope="col">Project Name</th>
+                <th scope="col">Geo Location</th>
+                <th scope="col">Description</th>
+            </tr>
+
+            </thead>
+            <tbody>
+            {% for object in projects_list %}
+                <tr>
+                    <td>{{ object.project_code }}</td>
+                    <td>{{ object.project_name }}</td>
+                    <td>{{ object.geo_area }}</td>
+                    <td>{{ object.project_desc }}</td>
+                </tr>
+
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+
+        {% include 'partials/pagination.html' %}
+    </div>
+{% endblock %}

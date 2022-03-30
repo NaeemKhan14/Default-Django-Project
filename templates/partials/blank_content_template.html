@@ -1,0 +1,91 @@
+{% extends 'partials/base_template.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load custom_tags %}
+
+{% block content %}
+
+    <div class="shadow bg-light rounded">
+        <ul class="nav nav-tabs p-3 nav-justified border-bottom mb-3" id="tabs">
+
+            <li class="nav-item">
+                <a class="nav-link active" href="#users_management">Users Management</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#projects_management">Projects Management</a>
+            </li>
+
+        </ul>
+        <div class="tab-content container-fluid">
+            <!-- USERS MANAGEMENT TAB STARTS HERE -->
+            <div class="tab-pane fade show active" id="users_management">
+                <div class="container-fluid row justify-content-center h-100">
+                    <div class="col-lg-2 ms-auto border-end d-inline-block mb-3" id="#users_management_pills">
+                        <ul class="nav flex-column nav-pills nav-fill" id="users_management_tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active mb-1" href="#users_list">Users List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="#add_new_user">Add New User</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content container-fluid col-lg-6 text-center w-75">
+                        <div class="tab-pane fade show active" id="users_list">
+                            {% block users_list %}
+
+                            {% endblock %}
+                        </div>
+                        <div class="tab-pane fade" id="add_new_user">
+
+                        <h3 class="border-bottom mb-4">Fill the form below to add a new user</h3>
+                            {% block new_user_form %}
+
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- USERS MANAGEMENT TAB ENDS HERE -->
+
+            <!-- PROJECTS MANAGEMENT TAB STARTS HERE -->
+            <div class="tab-pane fade" id="projects_management">
+                <div class="container-fluid row justify-content-center h-100">
+                    <div class="col-lg-2 ms-auto border-end d-inline-block mb-3" id="#projects_management_pills">
+                        <ul class="nav flex-column nav-pills nav-fill" id="projects_management_tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active mb-1" aria-current="page" href="#projects_list">Projects List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#add_new_project">Add New Project</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content container-fluid col-lg-6 text-center">
+                        <div class="tab-pane fade show active" id="projects_list">
+                            {% block projects_list %}
+
+                            {% endblock %}
+                        </div>
+                        <div class="tab-pane fade" id="add_new_project">
+                        <h3 class="border-bottom mb-4">Fill the form below to create a new project</h3>
+                            {% block add_project_form %}
+
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- PROJECTS MANAGEMENT TAB ENDS HERE -->
+        </div>
+
+    </div>
+
+    <div id="delete-modal"></div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/htmx_modal_close.js' %}"></script>
+    <script src="{% static 'js/content_page_tabs.js' %}"></script>
+{% endblock %}
